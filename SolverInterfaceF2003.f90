@@ -1,4 +1,4 @@
-module PreCICE_solver_if_module
+module precice
   use, intrinsic :: iso_c_binding
   implicit none
 
@@ -373,4 +373,4 @@ module PreCICE_solver_if_module
 
   end interface
 
-end module PreCICE_solver_if_module
+end module precice

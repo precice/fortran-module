@@ -1,5 +1,5 @@
 PROGRAM main
-  use PreCICE_solver_if_module
+  use precice
   IMPLICIT NONE
   
   ! We need the length of the strings, set this to a meaningful value in your code.
