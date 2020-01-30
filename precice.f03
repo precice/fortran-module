@@ -73,12 +73,12 @@ module precice
       integer(kind=c_int) :: isRequired
     end subroutine precicef_write_data_required
 
-    subroutine precicef_is_timestep_complete(isComplete) &
-      &  bind(c, name='precicef_is_timestep_complete_')
+    subroutine precicef_is_time_window_complete(isComplete) &
+      &  bind(c, name='precicef_is_time_window_complete_')
 
       use, intrinsic :: iso_c_binding
       integer(kind=c_int) :: isComplete
-    end subroutine precicef_is_timestep_complete
+  end subroutine precicef_is_time_window_complete
     
     subroutine precicef_has_to_evaluate_surrogate_model(hasToEvaluate) &
       &  bind(c, name='precicef_has_to_evaluate_surrogate_model_')
