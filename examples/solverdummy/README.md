@@ -3,7 +3,9 @@ This is an example of a Fortran 2003 solver dummy.
 # Building
 
 To build this project, make sure you have already build `precice.mod`.
-Then build this solver including `precice.mod` and linking to the preCICE library.
+Then simply run `make`.
+
+Alternatively, build this solver including `precice.mod` and linking to the preCICE library:
 ```
 gfortran solverdummy.f03 -I../.. -L$(pkg-config --libs libprecice)
 ```
