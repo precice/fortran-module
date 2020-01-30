@@ -51,7 +51,7 @@ PROGRAM main
     CALL precicef_action_required(writeItCheckp, bool, 50)
     IF (bool.EQ.1) THEN
       WRITE (*,*) 'DUMMY: Writing iteration checkpoint'
-      CALL precicef_fulfilled_action(writeItCheckp, 50)
+      CALL precicef_mark_action_fulfilled(writeItCheckp, 50)
     ENDIF
 
     CALL precicef_advance(dtlimit)
@@ -60,7 +60,7 @@ PROGRAM main
     CALL precicef_action_required(readItCheckp, bool, 50)
     IF (bool.EQ.1) THEN
       WRITE (*,*) 'DUMMY: Reading iteration checkpoint'
-      CALL precicef_fulfilled_action(readItCheckp, 50)
+      CALL precicef_mark_action_fulfilled(readItCheckp, 50)
     ELSE
       WRITE (*,*) 'DUMMY: Advancing in time'
     ENDIF

@@ -103,13 +103,13 @@ module PreCICE_solver_if_module
       integer(kind=c_int), value           :: lengthAction
     end subroutine precicef_action_required
 
-    subroutine precicef_fulfilled_action(action, lengthAction) &
-      &  bind(c, name='precicef_fulfilled_action_')
+    subroutine precicef_mark_action_fulfilled(action, lengthAction) &
+      &  bind(c, name='precicef_mark_action_fulfilled_')
 
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: action
       integer(kind=c_int), value           :: lengthAction
-    end subroutine precicef_fulfilled_action
+    end subroutine precicef_mark_action_fulfilled
 
     subroutine precicef_has_mesh(meshName, hasMesh, lengthMeshName) &
       &  bind(c, name='precicef_has_mesh_')
@@ -363,6 +363,13 @@ module PreCICE_solver_if_module
       character(kind=c_char), dimension(*) :: nameAction
       integer(kind=c_int), value :: lengthNameAction
     end subroutine precicef_action_read_iter_checkp
+
+    subroutine precicef_get_version_information(versionInfo, lengthVersionInfo) &
+      &        bind(c, name="precicef_get_version_information_")
+      use, intrinsic :: iso_c_binding
+      character(kind=c_char), dimension(*) :: versionInfo
+      integer(kind=c_int), value :: lengthVersionInfo
+    end subroutine precicef_get_version_information
 
   end interface
 
