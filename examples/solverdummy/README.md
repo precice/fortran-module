@@ -1,18 +1,16 @@
-This is an experimental example of a Fortran2003 solver dummy. Please contribute your suggestions for improvements on GitHub.
+This is an example of a Fortran 2003 solver dummy.
 
 # Compilation
 
 ```
-gfortran [path_to]/SolverInterfaceF2003.f90 -o solverdummy solverdummy.f03 -L[path_to_preCICE_lib] -lprecice
+gfortran [path_to]/precice.f03 -o solverdummy solverdummy.f03 -L[path_to_preCICE_lib] -lprecice
 ```
-
-Note that you need preCICE build as a static library.
 
 # Run
 
 You can test the dummy solver by coupling two instances with each other. Open two terminals and run
- * `./solverdummy ../precice-config.xml SolverOne MeshOne`
- * `./solverdummy ../precice-config.xml SolverTwo MeshTwo`
+ * `./solverdummy precice-config.xml SolverOne MeshOne`
+ * `./solverdummy precice-config.xml SolverTwo MeshTwo`
 
 # Next Steps
 
