@@ -50,28 +50,54 @@ module precice
       integer(kind=c_int) :: dimensions
     end subroutine precicef_get_dims
 
+    ! Deprecated - Forwards to precicef_is_coupling_ongoing_
     subroutine precicef_ongoing(isOngoing) &
-      &  bind(c, name='precicef_ongoing_')
+      &  bind(c, name='precicef_is_coupling_ongoing_')
 
       use, intrinsic :: iso_c_binding
       integer(kind=c_int) :: isOngoing
     end subroutine precicef_ongoing
+
+    subroutine precicef_is_coupling_ongoing(isOngoing) &
+      &  bind(c, name='precicef_is_coupling_ongoing_')
+
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: isOngoing
+    end subroutine precicef_is_coupling_ongoing
     
+    ! Deprecated - Forwards to precicef_is_read_data_available_
     subroutine precicef_read_data_available(isAvailable) &
-      &  bind(c, name='precicef_read_data_available_')
+      &  bind(c, name='precicef_is_read_data_available_')
 
       use, intrinsic :: iso_c_binding
       integer(kind=c_int) :: isAvailable
     end subroutine precicef_read_data_available
 
+    subroutine precicef_is_read_data_available(isAvailable) &
+      &  bind(c, name='precicef_is_read_data_available_')
+
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: isAvailable
+    end subroutine precicef_is_read_data_available
+
+    ! Deprecated - Forwards to precicef_is_write_data_required_
     subroutine precicef_write_data_required(computedTimestepLength, &
       &                                     isRequired) &
-      &  bind(c, name='precicef_write_data_required_')
+      &  bind(c, name='precicef_is_write_data_required_')
 
       use, intrinsic :: iso_c_binding
       real(kind=c_double) :: computedTimestepLength
       integer(kind=c_int) :: isRequired
     end subroutine precicef_write_data_required
+
+    subroutine precicef_is_write_data_required(computedTimestepLength, &
+      &                                       isRequired) &
+      &  bind(c, name='precicef_is_write_data_required_')
+
+      use, intrinsic :: iso_c_binding
+      real(kind=c_double) :: computedTimestepLength
+      integer(kind=c_int) :: isRequired
+    end subroutine precicef_is_write_data_required
 
     subroutine precicef_is_time_window_complete(isComplete) &
       &  bind(c, name='precicef_is_time_window_complete_')
@@ -94,8 +120,18 @@ module precice
       integer(kind=c_int) :: hasToEvaluate
     end subroutine precicef_has_to_evaluate_fine_model        
 
+    subroutine precicef_is_action_required(action, isRequired, lengthAction) &
+      &  bind(c, name='precicef_is_action_required_')
+
+      use, intrinsic :: iso_c_binding
+      character(kind=c_char), dimension(*) :: action
+      integer(kind=c_int)                  :: isRequired
+      integer(kind=c_int), value           :: lengthAction
+    end subroutine precicef_is_action_required
+
+    ! Deprecated - Forwards to precicef_is_action_required_
     subroutine precicef_action_required(action, isRequired, lengthAction) &
-      &  bind(c, name='precicef_action_required_')
+      &  bind(c, name='precicef_is_action_required_')
 
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: action

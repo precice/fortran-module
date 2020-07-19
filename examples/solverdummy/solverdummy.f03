@@ -39,13 +39,13 @@ PROGRAM main
         
   CALL precicef_initialize(dtlimit)            
 
-  CALL precicef_action_required(writeInitialData, bool, 50)
+  CALL precicef_is_action_required(writeInitialData, bool, 50)
   IF (bool.EQ.1) THEN
     WRITE (*,*) 'DUMMY: Writing initial data'
   ENDIF
   CALL precicef_initialize_data()
 
-  CALL precicef_ongoing(ongoing)
+  CALL precicef_is_coupling_ongoing(ongoing)
   DO WHILE (ongoing.NE.0)
   
     CALL precicef_action_required(writeItCheckp, bool, 50)
@@ -55,9 +55,9 @@ PROGRAM main
     ENDIF
 
     CALL precicef_advance(dtlimit)
-    CALL precicef_ongoing(ongoing)
+    CALL precicef_is_coupling_ongoing(ongoing)
 
-    CALL precicef_action_required(readItCheckp, bool, 50)
+    CALL precicef_is_action_required(readItCheckp, bool, 50)
     IF (bool.EQ.1) THEN
       WRITE (*,*) 'DUMMY: Reading iteration checkpoint'
       CALL precicef_mark_action_fulfilled(readItCheckp, 50)
