@@ -88,8 +88,6 @@ PROGRAM main
       CALL precicef_read_bvdata(readDataID, numberOfVertices, vertexIDs, readData)
     ENDIF
 
-    WRITE (*,*) 'readData: ', readData
-
     writeData = readData + 1
 
     CALL precicef_is_write_data_required(dt, bool)
