@@ -5,9 +5,12 @@ PROGRAM main
   ! We need the length of the strings, set this to a meaningful value in your code.
   ! Here assumed that length = 50 (arbitrary).
   CHARACTER*50                    :: config, participantName, meshName, writeInitialData, readItCheckp, writeItCheckp
-  INTEGER                         :: rank, commsize, ongoing, dimensions, meshID, vertexID, bool
-  REAL(8)                         :: dtlimit
-  REAL(8), DIMENSION(:), ALLOCATABLE :: vertex
+  CHARACTER*50                    :: readDataName, writeDataName
+  INTEGER                         :: rank, commsize, ongoing, dimensions, meshID, bool, numberOfVertices, i,j
+  INTEGER                         :: readDataID, writeDataID
+  REAL(8)                         :: dt
+  DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
+  INTEGER, DIMENSION(:), ALLOCATABLE :: vertexIDs
   integer(kind=c_int)             :: c_accessorNameLength
   integer(kind=c_int)             :: c_configFileNameLength
 
@@ -25,19 +28,45 @@ PROGRAM main
   CALL getarg(2, participantName)
   CALL getarg(3, meshName)
 
+  IF(participantName .eq. 'SolverOne') THEN
+    writeDataName = 'dataOne'
+    readDataName = 'dataTwo'
+  ENDIF
+  IF(participantName .eq. 'SolverTwo') THEN
+    writeDataName = 'dataTwo'
+    readDataName = 'dataOne'
+  ENDIF
+
   rank = 0
   commsize = 1
+  dt = 1
+  numberOfVertices = 3
   CALL precicef_create(participantName, config, rank, commsize, 50, 50)
 
-  ! Allocate dummy mesh with only one vertex 
+  ! Allocate dummy mesh with only one vertex
   CALL precicef_get_dims(dimensions)
-  ALLOCATE(vertex(dimensions))
-  vertex = 0
+  ALLOCATE(vertices(numberOfVertices*dimensions))
+  ALLOCATE(vertexIDs(numberOfVertices))
+  ALLOCATE(readData(numberOfVertices*dimensions))
+  ALLOCATE(writeData(numberOfVertices*dimensions))
   CALL precicef_get_mesh_id(meshName, meshID, 50)
-  CALL precicef_set_vertex(meshID, vertex, vertexID)  
-  DEALLOCATE(vertex)    
-        
-  CALL precicef_initialize(dtlimit)            
+
+  do i = 1,numberOfVertices,1
+    do j = 1,dimensions,1
+      vertices((i - 1)*dimensions + j ) = i-1
+      readData((i - 1)*dimensions + j ) = i-1
+      writeData((i - 1)*dimensions + j ) = i-1
+    enddo
+    vertexIDs(i) = i-1
+  enddo
+
+  CALL precicef_set_vertices(meshID, numberOfVertices, vertices, vertexIDs)
+  DEALLOCATE(vertices)
+
+  CALL precicef_get_data_id(readDataName,meshID,readDataID, 50)
+  CALL precicef_get_data_id(writeDataName,meshID,writeDataID, 50)
+
+  CALL precicef_initialize(dt)
 
   CALL precicef_is_action_required(writeInitialData, bool, 50)
   IF (bool.EQ.1) THEN
@@ -47,15 +76,26 @@ PROGRAM main
 
   CALL precicef_is_coupling_ongoing(ongoing)
   DO WHILE (ongoing.NE.0)
-  
-    CALL precicef_action_required(writeItCheckp, bool, 50)
+
+    CALL precicef_is_action_required(writeItCheckp, bool, 50)
     IF (bool.EQ.1) THEN
       WRITE (*,*) 'DUMMY: Writing iteration checkpoint'
       CALL precicef_mark_action_fulfilled(writeItCheckp, 50)
     ENDIF
 
-    CALL precicef_advance(dtlimit)
-    CALL precicef_is_coupling_ongoing(ongoing)
+    CALL precicef_is_read_data_available(bool)
+    IF (bool.EQ.1) THEN
+      CALL precicef_read_bvdata(readDataID, numberOfVertices, vertexIDs, readData)
+    ENDIF
+
+    writeData = readData + 1
+
+    CALL precicef_is_write_data_required(dt, bool)
+    IF (bool.EQ.1) THEN
+      CALL precicef_write_bvdata(writeDataID, numberOfVertices, vertexIDs, writeData)
+    ENDIF
+
+    CALL precicef_advance(dt)
 
     CALL precicef_is_action_required(readItCheckp, bool, 50)
     IF (bool.EQ.1) THEN
@@ -64,10 +104,16 @@ PROGRAM main
     ELSE
       WRITE (*,*) 'DUMMY: Advancing in time'
     ENDIF
-    
+
+    CALL precicef_is_coupling_ongoing(ongoing)
+
   ENDDO
   
   CALL precicef_finalize()
   WRITE (*,*) 'DUMMY: Closing Fortran solver dummy...'
+
+  DEALLOCATE(writeData)
+  DEALLOCATE(readData)
+  DEALLOCATE(vertexIDs)
 
 END PROGRAM 
