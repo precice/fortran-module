@@ -289,6 +289,14 @@ module precice
       integer(kind=c_int), value           :: lengthDataName
     end subroutine precicef_get_data_id
 
+    subroutine precicef_is_mesh_connectivity_required(meshID, required) &
+      & bind(c, name='precicef_is_mesh_connectivity_required_')
+
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: meshID
+      integer(kind=c_int) :: required
+    end subroutine precicef_is_mesh_connectivity_required
+
     subroutine precicef_map_read_data_to(meshID) &
       &  bind(c, name='precicef_map_read_data_to_')
 
