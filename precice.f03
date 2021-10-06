@@ -407,6 +407,23 @@ module precice
       integer(kind=c_int), value :: lengthVersionInfo
     end subroutine precicef_get_version_information
 
+    ! Experimental API function
+    subroutine precicef_set_mesh_access_region(meshID, boundingBox) &
+      &        bind(c, name="precicef_setMeshAccessRegion")
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: meshID
+      real(kind=c_double) :: boundingBox(*)  
+    end subroutine precicef_set_mesh_access_region
+
+    ! Experimental API function
+    subroutine precicef_get_mesh_vertices_and_ids(meshID, size, ids, coordinates) &
+      &        bind(c, name="precicef_getMeshVerticesAndIDs")
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: meshID
+      integer(kind=c_int) :: size
+      integer(kind=c_int) :: ids(*)
+      real(kind=c_double) :: coordinates(*) 
+    end subroutine precicef_get_mesh_vertices_and_ids
   end interface
 
 end module precice
