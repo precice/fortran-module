@@ -417,7 +417,7 @@ module precice
 
     ! Experimental API function
     subroutine precicef_set_mesh_access_region(meshID, boundingBox) &
-      &        bind(c, name="precicef_setMeshAccessRegion")
+      &        bind(c, name="precicef_set_mesh_access_region_")
       use, intrinsic :: iso_c_binding
       integer(kind=c_int) :: meshID
       real(kind=c_double) :: boundingBox(*)  
@@ -425,7 +425,7 @@ module precice
 
     ! Experimental API function
     subroutine precicef_get_mesh_vertices_and_ids(meshID, size, ids, coordinates) &
-      &        bind(c, name="precicef_getMeshVerticesAndIDs")
+      &        bind(c, name="precicef_get_mesh_vertices_and_IDs_")
       use, intrinsic :: iso_c_binding
       integer(kind=c_int) :: meshID
       integer(kind=c_int) :: size
