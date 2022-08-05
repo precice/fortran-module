@@ -233,6 +233,18 @@ module precice
       integer(kind=c_int) :: secondEdgeID
       integer(kind=c_int) :: thirdEdgeID
     end subroutine precicef_set_triangle
+
+    subroutine precicef_set_tetrahedron(meshID, firstVertexID, secondVertexID, &
+      &                                 thirdVertexID, fourthVertexID) &
+      &  bind(c, name='precicef_set_tetrahedron')
+
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: meshID
+      integer(kind=c_int) :: firstVertexID
+      integer(kind=c_int) :: secondVertexID
+      integer(kind=c_int) :: thirdVertexID
+      integer(kind=c_int) :: fourthVertexID
+    end subroutine precicef_set_tetrahedron
     
     subroutine precicef_set_triangle_we(meshID, firstVertexID, secondVertexID, &
       &                              thirdVertexID) &
