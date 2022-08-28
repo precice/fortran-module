@@ -444,6 +444,52 @@ module precice
       integer(kind=c_int) :: ids(*)
       real(kind=c_double) :: coordinates(*) 
     end subroutine precicef_get_mesh_vertices_and_ids
+
+    ! Gradient API functions
+    subroutine precicef_is_gradient_data_required(dataID, isRequired) &
+      &        bind(c, name="precicef_is_gradient_data_required_")
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: dataID
+      integer(kind=c_int) :: isRequired
+    end subroutine precicef_is_gradient_data_required
+
+    ! Gradient API functions 
+    subroutine precicef_write_sgradient_data(dataID, valueIndex, dataValue) &
+      &        bind(c, name="precicef_write_sgradient_data_")
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: dataID
+      integer(kind=c_int) :: valueIndex
+      real(kind=c_double) :: dataValue(*)
+    end subroutine precicef_write_sgradient_data
+    
+    ! Gradient API functions
+    subroutine precicef_write_bsgradient_data(dataID,size,valueIndices,gradientValues) &
+      &        bind(c, name="precicef_write_bsgradient_data_")
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: dataID
+      integer(kind=c_int) :: size
+      integer(kind=c_int) :: valueIndices(*)
+      real(kind=c_double) :: gradientValues(*)   
+    end subroutine precicef_write_bsgradient_data
+
+    ! Gradient API functions
+    subroutine precicef_write_vgradient_data(dataID, valueIndex, dataValue) &
+      &        bind(c, name="precicef_write_vgradient_data_")
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: dataID
+      integer(kind=c_int) :: valueIndex
+      real(kind=c_double) :: dataValue(*)
+    end subroutine precicef_write_vgradient_data
+
+    subroutine precicef_write_bvgradient_data(dataID, blocksize, valueIndices, gradientValues) &
+      &        bind(c, name="precicef_write_bvgradient_data_")
+      use, intrinsic :: iso_c_binding
+      integer(kind=c_int) :: dataID
+      integer(kind=c_int) :: blocksize
+      integer(kind=c_int) :: valueIndices(*)
+      real(kind=c_double) :: gradientValues(*)   
+    end subroutine precicef_write_bvgradient_data
+
   end interface
 
 end module precice
