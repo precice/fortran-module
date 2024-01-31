@@ -244,7 +244,7 @@ module precice
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
-      real(kind=c_double) :: relativeReadTime(*)
+      real(kind=c_double) :: relativeReadTime
       real(kind=c_double) :: values(*)
       integer(kind=c_int) :: meshNameLength
       integer(kind=c_int) :: dataNameLength
