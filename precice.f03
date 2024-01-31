@@ -58,7 +58,7 @@ module precice
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: dimensions
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_get_mesh_dimensions
 
     subroutine precicef_get_data_dimensions(meshName, dataName, &
@@ -69,8 +69,8 @@ module precice
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: dimensions
-      integer(kind=c_int) :: meshNameLength
-      integer(kind=c_int) :: dataNameLength
+      integer(kind=c_int), value :: meshNameLength
+      integer(kind=c_int), value :: dataNameLength
     end subroutine precicef_get_data_dimensions
 
     subroutine precicef_is_coupling_ongoing(isOngoing) &
@@ -100,7 +100,7 @@ module precice
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: required
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_requires_mesh_connectivity_for
 
     subroutine precicef_set_vertex(meshName, position, vertexID) &
@@ -118,7 +118,7 @@ module precice
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: meshSize
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_get_mesh_vertex_size    
     
     subroutine precicef_set_vertices(meshName, size, coordinates, ids, meshNameLength) &
@@ -129,7 +129,7 @@ module precice
       integer(kind=c_int) :: size
       real(kind=c_double) :: coordinates(*)
       integer(kind=c_int) :: ids(*)
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_vertices 
 
     subroutine precicef_set_edge(meshName, firstVertexID, secondVertexID, &
@@ -140,7 +140,7 @@ module precice
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: firstVertexID
       integer(kind=c_int) :: secondVertexID
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_edge
 
     subroutine precicef_set_mesh_edges(meshName, size, ids, meshNameLength) &
@@ -150,7 +150,7 @@ module precice
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_mesh_edges
 
     subroutine precicef_set_triangle(meshName, firstEdgeID, secondEdgeID, &
@@ -162,7 +162,7 @@ module precice
       integer(kind=c_int) :: firstEdgeID
       integer(kind=c_int) :: secondEdgeID
       integer(kind=c_int) :: thirdEdgeID
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_triangle
 
     subroutine precicef_set_quad(meshName, firstVertexID, secondVertexID, &
@@ -176,7 +176,7 @@ module precice
       integer(kind=c_int) :: secondVertexID
       integer(kind=c_int) :: thirdVertexID
       integer(kind=c_int) :: fourthVertexID
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_quad
 
     subroutine precicef_set_mesh_quads(meshName, size, ids, meshNameLength) &
@@ -186,7 +186,7 @@ module precice
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_mesh_quads
 
     subroutine precicef_set_tetrahedron(meshName, firstVertexID, secondVertexID, &
@@ -200,7 +200,7 @@ module precice
       integer(kind=c_int) :: secondVertexID
       integer(kind=c_int) :: thirdVertexID
       integer(kind=c_int) :: fourthVertexID
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_tetrahedron
   
     subroutine precicef_set_mesh_tetrahedra(meshName, size, ids, meshNameLength) &
@@ -210,7 +210,7 @@ module precice
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_mesh_tetrahedra
 
     subroutine precicef_requires_initial_data(isRequired) &
@@ -230,8 +230,8 @@ module precice
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
       real(kind=c_double) :: values(*)
-      integer(kind=c_int) :: meshNameLength
-      integer(kind=c_int) :: dataNameLength
+      integer(kind=c_int), value :: meshNameLength
+      integer(kind=c_int), value :: dataNameLength
     end subroutine precicef_write_data
 
     subroutine precicef_read_data(meshName, dataName, size, ids, &
@@ -246,8 +246,8 @@ module precice
       integer(kind=c_int) :: ids(*)
       real(kind=c_double) :: relativeReadTime
       real(kind=c_double) :: values(*)
-      integer(kind=c_int) :: meshNameLength
-      integer(kind=c_int) :: dataNameLength
+      integer(kind=c_int), value :: meshNameLength
+      integer(kind=c_int), value :: dataNameLength
     end subroutine precicef_read_data
 
     subroutine precicef_set_mesh_access_region(meshName, boundingBox, &
@@ -257,7 +257,7 @@ module precice
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: meshName
       real(kind=c_double) :: boundingBox(*)
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_mesh_access_region
 
     subroutine precicef_get_mesh_vertex_ids_and_coordinates(meshName, size, &
@@ -270,7 +270,7 @@ module precice
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
       real(kind=c_double) :: coordinates(*) 
-      integer(kind=c_int) :: meshNameLength
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_get_mesh_vertex_ids_and_coordinates
 
     subroutine precicef_requires_gradient_data_for(meshName, dataName, &
@@ -282,8 +282,8 @@ module precice
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: required
-      integer(kind=c_int) :: meshNameLength
-      integer(kind=c_int) :: dataNameLength
+      integer(kind=c_int), value :: meshNameLength
+      integer(kind=c_int), value :: dataNameLength
     end subroutine precicef_requires_gradient_data_for
 
     subroutine precicef_write_gradient_data(meshName, dataName, size, ids, &
@@ -297,8 +297,8 @@ module precice
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
       real(kind=c_double) :: gradients(*)
-      integer(kind=c_int) :: meshNameLength
-      integer(kind=c_int) :: dataNameLength
+      integer(kind=c_int), value :: meshNameLength
+      integer(kind=c_int), value :: dataNameLength
     end subroutine precicef_write_gradient_data
 
     subroutine precicef_get_version_information(versionInfo, lengthVersionInfo) &

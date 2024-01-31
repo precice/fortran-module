@@ -13,19 +13,19 @@ PROGRAM main
   INTEGER, DIMENSION(:), ALLOCATABLE :: vertexIDs
   integer(kind=c_int)             :: c_participantNameLength = 50
   integer(kind=c_int)             :: c_configFileNameLength = 50
-  integer(kind=c_int)             :: c_meshNameLength = 50
-  integer(kind=c_int)             :: c_dataNameLength = 50
 
   WRITE (*,*) 'DUMMY: Starting Fortran solver dummy...'
   CALL getarg(1, config)
   CALL getarg(2, participantName)
 
   IF(participantName .eq. 'SolverOne') THEN
+    write(*,*) "SolverOne"
     writeDataName = 'Data-One'
     readDataName = 'Data-Two'
     meshName = 'SolverOne-Mesh'
   ENDIF
   IF(participantName .eq. 'SolverTwo') THEN
+    write(*,*) "SolverTwo"
     writeDataName = 'Data-Two'
     readDataName = 'Data-One'
     meshName = 'SolverTwo-Mesh'
@@ -35,10 +35,10 @@ PROGRAM main
   commsize = 1
   dt = 1
   numberOfVertices = 3
-  CALL precicef_create(participantName, config, rank, commsize, c_participantNameLength, c_configFileNameLength)
+  CALL precicef_create(participantName, config, rank, commsize, 50, 50)
 
   ! Allocate dummy mesh with only one vertex
-  CALL precicef_get_mesh_dimensions(meshName, dimensions, c_meshNameLength)
+  CALL precicef_get_mesh_dimensions(meshName, dimensions, 50)
   ALLOCATE(vertices(numberOfVertices*dimensions))
   ALLOCATE(vertexIDs(numberOfVertices))
   ALLOCATE(readData(numberOfVertices*dimensions))
@@ -53,7 +53,7 @@ PROGRAM main
     vertexIDs(i) = i-1
   enddo
 
-  CALL precicef_set_vertices(meshName, numberOfVertices, vertices, vertexIDs, c_meshNameLength)
+  CALL precicef_set_vertices(meshName, numberOfVertices, vertices, vertexIDs, 50)
   DEALLOCATE(vertices)
 
   CALL precicef_requires_initial_data(bool)
@@ -72,15 +72,13 @@ PROGRAM main
     ENDIF
 
     CALL precicef_get_max_time_step_size(dt)
-    CALL precicef_read_data(meshName, readDataName, numberOfVertices, vertexIDs, dt, readData, &
-      &                     c_meshNameLength, c_dataNameLength)
+    CALL precicef_read_data(meshName, readDataName, numberOfVertices, vertexIDs, dt, readData, 50, 50)
 
     WRITE (*,*) 'readData: ', readData
 
     writeData = readData + 1
 
-    CALL precicef_write_data(meshName, writeDataName, numberOfVertices, vertexIDs, writeData, &
-      &                      c_meshNameLength, c_dataNameLength)
+    CALL precicef_write_data(meshName, writeDataName, numberOfVertices, vertexIDs, writeData, 50, 50)
 
     CALL precicef_advance(dt)
 
