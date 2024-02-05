@@ -103,13 +103,14 @@ module precice
       integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_requires_mesh_connectivity_for
 
-    subroutine precicef_set_vertex(meshName, position, vertexID) &
+    subroutine precicef_set_vertex(meshName, position, vertexID, meshNameLength) &
       &  bind(c, name='precicef_set_vertex_')
 
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: meshName
       real(kind=c_double) :: coordinates(3)
       integer(kind=c_int) :: id
+      integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_vertex
     
     subroutine precicef_get_mesh_vertex_size(meshName, meshSize, meshNameLength) &
