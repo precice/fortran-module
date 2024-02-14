@@ -8,7 +8,7 @@ Then simply run `make`.
 Alternatively, build this solver including `precice.mod` and linking to the preCICE library:
 
 ```shell
-gfortran solverdummy.f03 -I../.. -L$(pkg-config --libs libprecice)
+gfortran solverdummy.f90 -I../.. -L$(pkg-config --libs libprecice)
 ```
 
 Where `../..` is the path to `precice.mod`.

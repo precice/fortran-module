@@ -2,7 +2,7 @@ F03 ?= gfortran
 
 all: precice
 
-precice: precice.f03
+precice: precice.f90
 	$(F03) -c $^
 
 clean:
