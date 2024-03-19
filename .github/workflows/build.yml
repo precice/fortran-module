@@ -11,11 +11,8 @@ on:
 jobs:
   build-gfortran:
     runs-on: ubuntu-latest
+    container: precice/precice:v3.0.0
     steps:
-      - name: Setup preCICE
-        uses: precice/setup-precice-action@main
-        with:
-          precice-version: main
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Build module (gfortran)
