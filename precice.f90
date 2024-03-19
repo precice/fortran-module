@@ -193,7 +193,7 @@ module precice
     subroutine precicef_set_tetrahedron(meshName, firstVertexID, secondVertexID, &
       &                                 thirdVertexID, fourthVertexID, &
       &                                 meshNameLength) &
-      &  bind(c, name='precicef_set_tetrahedron')
+      &  bind(c, name='precicef_set_tetrahedron_')
 
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: meshName
@@ -290,7 +290,7 @@ module precice
     subroutine precicef_write_gradient_data(meshName, dataName, size, ids, &
       &                                     gradients, meshNameLength, &
       &                                     dataNameLength) &
-      & bind(c, name='precicef_write_gradient_data')
+      & bind(c, name='precicef_write_gradient_data_')
 
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: meshName
