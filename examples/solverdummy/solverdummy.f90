@@ -4,9 +4,9 @@ PROGRAM main
   
   ! We need the length of the strings, set this to a meaningful value in your code.
   ! Here assumed that length = 50 (arbitrary).
-  CHARACTER*50                    :: config
-  CHARACTER*50                    :: participantName, meshName
-  CHARACTER*50                    :: readDataName, writeDataName
+  CHARACTER(50)                   :: config
+  CHARACTER(50)                   :: participantName, meshName
+  CHARACTER(50)                   :: readDataName, writeDataName
   INTEGER                         :: rank, commsize, ongoing, dimensions, bool, numberOfVertices, i, j
   REAL(8)                         :: dt
   DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
@@ -15,8 +15,8 @@ PROGRAM main
   integer(kind=c_int)             :: c_configFileNameLength = 50
 
   WRITE (*,*) 'DUMMY: Starting Fortran solver dummy...'
-  CALL getarg(1, config)
-  CALL getarg(2, participantName)
+  CALL get_command_argument(1, config)
+  CALL get_command_argument(2, participantName)
 
   IF(participantName .eq. 'SolverOne') THEN
     write(*,*) "SolverOne"
