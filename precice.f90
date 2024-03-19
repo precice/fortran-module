@@ -10,17 +10,14 @@ module precice
     !   the corresponding `precicec_<name>`.
   
     subroutine precicec_create(participantName, configFileName, &
-      &                        solverProcessIndex, solverProcessSize, &
-      &                        participantNameLength, configFileNameLength) &
-      &  bind(c, name='precicef_create_')
+      &                        solverProcessIndex, solverProcessSize) &
+      &  bind(c, name='precicec_createParticipant')
 
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: participantName
       character(kind=c_char), dimension(*) :: configFileName
       integer(kind=c_int) :: solverProcessIndex
       integer(kind=c_int) :: solverProcessSize
-      integer(kind=c_int), value :: participantNameLength
-      integer(kind=c_int), value :: configFileNameLength
     end subroutine precicec_create
 
     subroutine precicef_initialize() &
@@ -328,21 +325,11 @@ module precice
     character(len=*), intent(in) :: configFileName
     integer(c_int), intent(in) :: solverProcessIndex
     integer(c_int), intent(in) :: solverProcessSize
-    integer(kind=c_int), intent(in), optional :: participantNameLengthIn
-    integer(kind=c_int), intent(in), optional :: configFileNameLengthIn
-    integer(kind=c_int) participantNameLength
-    integer(kind=c_int) configFileNameLength
-
-    participantNameLength = 50
-    configFileNameLength = 50
-    if(present(participantNameLengthIn)) participantNameLength = participantNameLengthIn
-    if(present(configFileNameLengthIn)) configFileNameLength = configFileNameLengthIn
 
     call precicec_create( &
       trim(participantName)//c_null_char, &
       trim(configFileName)//c_null_char, &
-      solverProcessIndex, solverProcessSize, &
-      participantNameLength, configFileNameLength)
+      solverProcessIndex, solverProcessSize)
   end subroutine precicef_create
   
 end module precice
