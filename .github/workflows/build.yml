@@ -28,4 +28,9 @@ jobs:
       - name: Run example
         run: |
           cd examples/solverdummy
-          ./solverdummy precice-config.xml SolverOne && ./solverdummy precice-config.xml SolverTwo
+          ./solverdummy precice-config.xml SolverOne &
+          PIDOne=$!
+          ./solverdummy precice-config.xml SolverTwo &
+          PIDTwo=$!
+          wait $PIDOne
+          wait $PIDTwo
