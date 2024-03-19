@@ -1,0 +1,30 @@
+name: Build and run
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+jobs:
+  build-gfortran:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup preCICE
+        uses: precice/setup-precice-action@main
+        with:
+          precice-version: main
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build module (gfortran)
+        run: |
+          make
+      - name: Build example
+        run: |
+          cd examples/solverdummy
+          make
+      - name: Run example
+        run: |
+          ./solverdummy precice-config.xml SolverOne && ./solverdummy precice-config.xml SolverTwo
