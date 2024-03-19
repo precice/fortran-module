@@ -27,4 +27,5 @@ jobs:
           make
       - name: Run example
         run: |
+          cd examples/solverdummy
           ./solverdummy precice-config.xml SolverOne && ./solverdummy precice-config.xml SolverTwo
