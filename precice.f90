@@ -3,8 +3,13 @@ module precice
   implicit none
 
   interface
+
+    ! This interface contains subroutines of two kinds:
+    ! - precicec_<name> expect C-style, null-terminated strings and their sizes
+    ! - precicef_<name> automatically convert strings to null-terminated and call
+    !   the corresponding `precicec_<name>`.
   
-    subroutine precicef_create(participantName, configFileName, &
+    subroutine precicec_create(participantName, configFileName, &
       &                        solverProcessIndex, solverProcessSize, &
       &                        participantNameLength, configFileNameLength) &
       &  bind(c, name='precicef_create_')
@@ -16,7 +21,7 @@ module precice
       integer(kind=c_int) :: solverProcessSize
       integer(kind=c_int), value :: participantNameLength
       integer(kind=c_int), value :: configFileNameLength
-    end subroutine precicef_create
+    end subroutine precicec_create
 
     subroutine precicef_initialize() &
       &  bind(c, name='precicef_initialize_')
@@ -312,4 +317,32 @@ module precice
 
   end interface
 
+  contains
+
+  subroutine precicef_create(participantName, configFileName, &
+    &                        solverProcessIndex, solverProcessSize, &
+    &                        participantNameLengthIn, configFileNameLengthIn)
+
+    use, intrinsic :: iso_c_binding, only: c_char, c_int
+    character(len=*), intent(in) :: participantName
+    character(len=*), intent(in) :: configFileName
+    integer(c_int), intent(in) :: solverProcessIndex
+    integer(c_int), intent(in) :: solverProcessSize
+    integer(kind=c_int), intent(in), optional :: participantNameLengthIn
+    integer(kind=c_int), intent(in), optional :: configFileNameLengthIn
+    integer(kind=c_int) participantNameLength
+    integer(kind=c_int) configFileNameLength
+
+    participantNameLength = 50
+    configFileNameLength = 50
+    if(present(participantNameLengthIn)) participantNameLength = participantNameLengthIn
+    if(present(configFileNameLengthIn)) configFileNameLength = configFileNameLengthIn
+
+    call precicec_create( &
+      trim(participantName)//c_null_char, &
+      trim(configFileName)//c_null_char, &
+      solverProcessIndex, solverProcessSize, &
+      participantNameLength, configFileNameLength)
+  end subroutine precicef_create
+  
 end module precice
