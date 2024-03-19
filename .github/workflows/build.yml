@@ -11,7 +11,7 @@ on:
 jobs:
   build-gfortran:
     runs-on: ubuntu-latest
-    container: precice/precice:3.0.0
+    container: precice/precice:nightly
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
