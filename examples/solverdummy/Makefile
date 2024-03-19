@@ -3,7 +3,7 @@ F03 ?= gfortran
 all: solverdummy
 
 solverdummy: solverdummy.f90
-	$(F03) -g $^ -o $@ -I../.. $(shell pkg-config --libs libprecice)
+	$(F03) -fimplicit-none -g $^ -o $@ -I../.. $(shell pkg-config --libs libprecice)
 
 clean:
 	rm -f solverdummy
