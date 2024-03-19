@@ -110,8 +110,8 @@ module precice
 
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: meshName
-      real(kind=c_double) :: coordinates(3)
-      integer(kind=c_int) :: id
+      real(kind=c_double) :: position(3)
+      integer(kind=c_int) :: vertexID
       integer(kind=c_int), value :: meshNameLength
     end subroutine precicef_set_vertex
     

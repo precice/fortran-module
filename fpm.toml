@@ -1,0 +1,22 @@
+name = "precice-fortran-module"
+version = "0.1.0"
+license = "license"
+author = "Jane Doe"
+maintainer = "jane.doe@example.com"
+copyright = "Copyright 2021, Jane Doe"
+description = "precice Fortran module"
+homepage = "https://precice.org/index.html"
+
+[build]
+auto-executables = false
+auto-examples = false
+auto-tests = false
+link = ["precice"]
+
+[[example]]
+name = "solverdummy"
+source-dir = "examples/solverdummy"
+main = "solverdummy.f90"
+
+[install]
+library = true
