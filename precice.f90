@@ -317,8 +317,7 @@ module precice
   contains
 
   subroutine precicef_create(participantName, configFileName, &
-    &                        solverProcessIndex, solverProcessSize, &
-    &                        participantNameLengthIn, configFileNameLengthIn)
+    &                        solverProcessIndex, solverProcessSize)
 
     use, intrinsic :: iso_c_binding, only: c_char, c_int
     character(len=*), intent(in) :: participantName
