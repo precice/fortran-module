@@ -1,6 +1,7 @@
 PROGRAM main
   use precice
   IMPLICIT NONE
+  INTEGER, PARAMETER :: DP = kind(1.0d0)
   
   ! We need the length of the strings, set this to a meaningful value in your code.
   ! Here assumed that length = 50 (arbitrary).
@@ -8,8 +9,8 @@ PROGRAM main
   CHARACTER(50)                   :: participantName, meshName
   CHARACTER(50)                   :: readDataName, writeDataName
   INTEGER                         :: rank, commsize, ongoing, dimensions, bool, numberOfVertices, i, j
-  REAL(8)                         :: dt
-  DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
+  REAL(DP)                         :: dt
+  REAL(DP), DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
   INTEGER, DIMENSION(:), ALLOCATABLE :: vertexIDs
   integer(kind=c_int)             :: c_participantNameLength = 50
   integer(kind=c_int)             :: c_configFileNameLength = 50
