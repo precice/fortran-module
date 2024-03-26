@@ -1,9 +1,9 @@
-F03 ?= gfortran
+FC ?= gfortran
 
 all: solverdummy
 
-solverdummy: solverdummy.f03
-	$(F03) $^ -o $@ -I../.. $(shell pkg-config --libs libprecice)
+solverdummy: solverdummy.f90
+	$(FC)  -std=f2003 -g $^ -o $@ -I../.. $(shell pkg-config --libs libprecice)
 
 clean:
 	rm -f solverdummy
