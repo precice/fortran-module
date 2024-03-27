@@ -36,7 +36,7 @@ PROGRAM main
   commsize = 1
   dt = 1
   numberOfVertices = 3
-  CALL precicef_create(participantName, config, rank, commsize, 50, 50)
+  CALL precicef_create(participantName, config, rank, commsize)
 
   ! Allocate dummy mesh with only one vertex
   CALL precicef_get_mesh_dimensions(meshName, dimensions, 50)
