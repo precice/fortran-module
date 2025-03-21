@@ -251,6 +251,36 @@ module precice
       integer(kind=c_int), value :: dataNameLength
     end subroutine precicef_read_data
 
+    subroutine precicef_write_and_map_data(meshName, dataName, size, coordinates, &
+      &                            values, meshNameLength, dataNameLength) &
+      & bind(c, name='precicef_write_and_map_data_')
+    
+      use, intrinsic :: iso_c_binding
+      character(kind=c_char), dimension(*) :: meshName
+      character(kind=c_char), dimension(*) :: dataName
+      integer(kind=c_int) :: size
+      real(kind=c_double) :: coordinates(*)
+      real(kind=c_double) :: values(*)
+      integer(kind=c_int), value :: meshNameLength
+      integer(kind=c_int), value :: dataNameLength
+    end subroutine precicef_write_and_map_data
+
+    subroutine precicef_map_and_read_data(meshName, dataName, size, coordinates, &
+      &                           relativeReadTime, values, meshNameLength, &
+      &                           dataNameLength) &
+      & bind(c, name='precicef_map_and_read_data_')
+    
+      use, intrinsic :: iso_c_binding
+      character(kind=c_char), dimension(*) :: meshName
+      character(kind=c_char), dimension(*) :: dataName
+      integer(kind=c_int) :: size
+      real(kind=c_double) :: coordinates(*)
+      real(kind=c_double) :: relativeReadTime
+      real(kind=c_double) :: values(*)
+      integer(kind=c_int), value :: meshNameLength
+      integer(kind=c_int), value :: dataNameLength
+    end subroutine precicef_map_and_read_data
+
     subroutine precicef_set_mesh_access_region(meshName, boundingBox, &
       &                                        meshNameLength) &
       & bind(c, name='precicef_set_mesh_access_region_')
