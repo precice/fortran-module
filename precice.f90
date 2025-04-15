@@ -332,8 +332,22 @@ module precice
       integer(kind=c_int), value :: dataNameLength
     end subroutine precicef_write_gradient_data
 
+    subroutine precicef_start_profiling_section(sectionName, sectionNameLength) &
+      & bind(c, name="precicef_start_profiling_section_")
+
+      use, intrinsic :: iso_c_binding
+      character(kind=c_char), dimension(*) :: sectionName
+      integer(kind=c_int), value :: sectionNameLength
+    end subroutine precicef_start_profiling_section
+
+    subroutine precicef_stop_last_profiling_section() &
+      & bind(c, name="precicef_stop_last_profiling_section_")
+
+      use, intrinsic :: iso_c_binding
+    end subroutine precicef_stop_last_profiling_section
+
     subroutine precicef_get_version_information(versionInfo, lengthVersionInfo) &
-      &        bind(c, name="precicef_get_version_information_")
+      & bind(c, name="precicef_get_version_information_")
 
       use, intrinsic :: iso_c_binding
       character(kind=c_char), dimension(*) :: versionInfo
