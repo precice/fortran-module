@@ -1,5 +1,5 @@
 module precice
-  use, intrinsic :: iso_c_binding
+  use, intrinsic :: iso_c_binding, only: c_char, c_int, c_double
   implicit none
 
   interface
@@ -9,7 +9,7 @@ module precice
       &                        participantNameLength, configFileNameLength) &
       &  bind(c, name='precicef_create_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: participantName
       character(kind=c_char), dimension(*) :: configFileName
       integer(kind=c_int) :: solverProcessIndex
@@ -21,33 +21,31 @@ module precice
     subroutine precicef_initialize() &
       &  bind(c, name='precicef_initialize_')
 
-      use, intrinsic :: iso_c_binding
     end subroutine precicef_initialize
 
     subroutine precicef_advance(timestepLengthLimit) &
       &  bind(c, name='precicef_advance_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_double
       real(kind=c_double) :: timestepLengthLimit
     end subroutine precicef_advance
 
     subroutine precicef_finalize() &
       & bind(c, name='precicef_finalize_')
 
-      use, intrinsic :: iso_c_binding
     end subroutine precicef_finalize
 
     subroutine precicef_requires_reading_checkpoint(isRequired) &
        &  bind(c, name='precicef_requires_reading_checkpoint_')
 
-       use, intrinsic :: iso_c_binding
+       import :: c_int
        integer(kind=c_int) :: isRequired
     end subroutine precicef_requires_reading_checkpoint
 
     subroutine precicef_requires_writing_checkpoint(isRequired) &
        &  bind(c, name='precicef_requires_writing_checkpoint_')
 
-       use, intrinsic :: iso_c_binding
+       import :: c_int
        integer(kind=c_int) :: isRequired
     end subroutine precicef_requires_writing_checkpoint
 
@@ -55,7 +53,7 @@ module precice
       & meshNameLength) &
       & bind(c, name='precicef_get_mesh_dimensions_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: dimensions
       integer(kind=c_int), value :: meshNameLength
@@ -65,7 +63,7 @@ module precice
       & dimensions, meshNameLength, dataNameLength) &
       & bind(c, name='precicef_get_data_dimensions_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: dimensions
@@ -76,28 +74,28 @@ module precice
     subroutine precicef_is_coupling_ongoing(isOngoing) &
       &  bind(c, name='precicef_is_coupling_ongoing_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int
       integer(kind=c_int) :: isOngoing
     end subroutine precicef_is_coupling_ongoing
 
     subroutine precicef_is_time_window_complete(isComplete) &
       &  bind(c, name='precicef_is_time_window_complete_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int
       integer(kind=c_int) :: isComplete
     end subroutine precicef_is_time_window_complete
 
     subroutine precicef_get_max_time_step_size(maxTimeStepSize) &
       & bind(c, name='precicef_get_max_time_step_size_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_double
       real(kind=c_double) :: maxTimeStepSize
     end subroutine precicef_get_max_time_step_size
 
     subroutine precicef_requires_mesh_connectivity_for(meshName, required, meshNameLength) &
       & bind(c, name='precicef_requires_mesh_connectivity_for_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: required
       integer(kind=c_int), value :: meshNameLength
@@ -106,7 +104,7 @@ module precice
     subroutine precicef_set_vertex(meshName, coordinates, id, meshNameLength) &
       &  bind(c, name='precicef_set_vertex_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       real(kind=c_double) :: coordinates(3)
       integer(kind=c_int) :: id
@@ -116,7 +114,7 @@ module precice
     subroutine precicef_get_mesh_vertex_size(meshName, meshSize, meshNameLength) &
       &  bind(c, name='precicef_get_mesh_vertex_size_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: meshSize
       integer(kind=c_int), value :: meshNameLength
@@ -125,7 +123,7 @@ module precice
     subroutine precicef_set_vertices(meshName, size, coordinates, ids, meshNameLength) &
       &  bind(c, name='precicef_set_vertices_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       real(kind=c_double) :: coordinates(*)
@@ -137,7 +135,7 @@ module precice
       &                          meshNameLength) &
       &  bind(c, name='precicef_set_edge_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: firstVertexID
       integer(kind=c_int) :: secondVertexID
@@ -147,7 +145,7 @@ module precice
     subroutine precicef_set_mesh_edges(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_edges_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
@@ -158,7 +156,7 @@ module precice
       &                              thirdEdgeID, meshNameLength) &
       &  bind(c, name='precicef_set_triangle_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: firstEdgeID
       integer(kind=c_int) :: secondEdgeID
@@ -169,7 +167,7 @@ module precice
     subroutine precicef_set_mesh_triangles(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_triangles_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
@@ -181,7 +179,7 @@ module precice
       &                          meshNameLength ) &
       &  bind(c, name='precicef_set_quad_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: firstVertexID
       integer(kind=c_int) :: secondVertexID
@@ -193,7 +191,7 @@ module precice
     subroutine precicef_set_mesh_quads(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_quads_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
@@ -205,7 +203,7 @@ module precice
       &                                 meshNameLength) &
       &  bind(c, name='precicef_set_tetrahedron_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: firstVertexID
       integer(kind=c_int) :: secondVertexID
@@ -217,7 +215,7 @@ module precice
     subroutine precicef_set_mesh_tetrahedra(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_tetrahedra_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
@@ -227,7 +225,7 @@ module precice
     subroutine precicef_requires_initial_data(isRequired) &
       & bind(c, name='precicef_requires_initial_data_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int
       integer(kind=c_int) :: isRequired
     end subroutine precicef_requires_initial_data
 
@@ -235,7 +233,7 @@ module precice
       &                            values, meshNameLength, dataNameLength) &
       & bind(c, name='precicef_write_data_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: size
@@ -250,7 +248,7 @@ module precice
       &                           dataNameLength) &
       & bind(c, name='precicef_read_data_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: size
@@ -265,7 +263,7 @@ module precice
       &                            values, meshNameLength, dataNameLength) &
       & bind(c, name='precicef_write_and_map_data_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: size
@@ -280,7 +278,7 @@ module precice
       &                           dataNameLength) &
       & bind(c, name='precicef_map_and_read_data_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: size
@@ -295,7 +293,7 @@ module precice
       &                                        meshNameLength) &
       & bind(c, name='precicef_set_mesh_access_region_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       real(kind=c_double) :: boundingBox(*)
       integer(kind=c_int), value :: meshNameLength
@@ -306,7 +304,7 @@ module precice
       &                                                     meshNameLength) &
       & bind(c, name='precicef_get_mesh_vertex_ids_and_coordinates_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       integer(kind=c_int) :: size
       integer(kind=c_int) :: ids(*)
@@ -319,7 +317,7 @@ module precice
       &                                            dataNameLength) &
       & bind(c, name='precicef_requires_gradient_data_for_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: required
@@ -332,7 +330,7 @@ module precice
       &                                     dataNameLength) &
       & bind(c, name='precicef_write_gradient_data_')
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char, c_double
       character(kind=c_char), dimension(*) :: meshName
       character(kind=c_char), dimension(*) :: dataName
       integer(kind=c_int) :: size
@@ -345,7 +343,7 @@ module precice
     subroutine precicef_start_profiling_section(sectionName, sectionNameLength) &
       & bind(c, name="precicef_start_profiling_section_")
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: sectionName
       integer(kind=c_int), value :: sectionNameLength
     end subroutine precicef_start_profiling_section
@@ -353,13 +351,12 @@ module precice
     subroutine precicef_stop_last_profiling_section() &
       & bind(c, name="precicef_stop_last_profiling_section_")
 
-      use, intrinsic :: iso_c_binding
     end subroutine precicef_stop_last_profiling_section
 
     subroutine precicef_get_version_information(versionInfo, lengthVersionInfo) &
       & bind(c, name="precicef_get_version_information_")
 
-      use, intrinsic :: iso_c_binding
+      import :: c_int, c_char
       character(kind=c_char), dimension(*) :: versionInfo
       integer(kind=c_int), value :: lengthVersionInfo
     end subroutine precicef_get_version_information
