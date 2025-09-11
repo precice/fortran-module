@@ -1,27 +1,26 @@
-# preCICE solverdummy in Fortran
+# Fortran module for preCICE
 
-This is an example of a Fortran 2003 solver dummy.
-
-## Building
-
-To build this project, make sure you have already build `precice.mod`.
-Then simply run `make`.
-
-Alternatively, build this solver including `precice.mod` and linking to the preCICE library:
-
+This is a Fortran module that uses the [preCICE Fortran bindings](https://precice.org/couple-your-code-api.html) (written in C++) using the `iso_c_binding` intrinsic module.
+The build process uses the GNU Fortran compiler (gfortran), which in turn depends on the default GCC version available on your system. You can check which version is being used with:
 ```shell
-gfortran solverdummy.f90 -I../.. -L$(pkg-config --libs libprecice)
+gfortran --version
+```
+If the version is not compatible with your setup, adjust your environment or compiler settings accordingly. Build the module using `make` which executes:
+```shell
+gfortran -c precice.f90
 ```
 
-Where `../..` is the path to `precice.mod`.
+If the version is not compatible with your setup, adjust your environment or compiler settings accordingly.
+```shell
+find_package(precice REQUIRED CONFIG)
+target_link_libraries(executable_name PRIVATE precice::precice)
+```
+Replace <executable_name> with the actual name of your target executable. To ensure your executable can locate the preCICE shared library (libprecice.so) at runtime, you need to add the installation path of preCICE to your environment
 
-## Run
+# Compilation check
+After successful compilation, check if your executable can find the corresponding libprecice.so files by,
+```shell
+ldd executable_name
+````
 
-You can test the dummy solver by coupling two instances with each other. Open two terminals and run
-
-* `./solverdummy precice-config.xml SolverOne`
-* `./solverdummy precice-config.xml SolverTwo`
-
-## Next Steps
-
-If you want to couple any other solver against the dummy be sure to adjust the preCICE configuration (participant names, mesh names, data names etc.) to the needs of your solver, compare our [step-by-step guide for new adapters](https://github.com/precice/precice/wiki/Adapter-Example).
+This project was moved from the [main preCICE repository](https://github.com/precice/precice). See the [history](https://github.com/precice/precice/tree/d0fafbd912ad6cbf0727299d23e1210570957945/src/precice/bindings/f2003). Previous contributions by @haraldkl, @Krupp, @gatzhamm, @uekerman, @floli, @MakisH, @BenjaminRueth, @RPGP1.
