@@ -18,6 +18,22 @@ module precice
       integer(kind=c_int), value, intent(in) :: configFileNameLength
     end subroutine precicef_create
 
+    subroutine precicef_create_with_communicator(participantName, configFileName, &
+      &                        solverProcessIndex, solverProcessSize, &
+      &                        communicator, &
+      &                        participantNameLength, configFileNameLength) &
+      &  bind(c, name='precicef_create_with_communicator_')
+
+      import :: c_char, c_int
+      character(kind=c_char), dimension(*), intent(in) :: participantName
+      character(kind=c_char), dimension(*), intent(in) :: configFileName
+      integer(kind=c_int), intent(in) :: solverProcessIndex
+      integer(kind=c_int), intent(in) :: solverProcessSize
+      integer(kind=c_int), intent(in) :: communicator
+      integer(kind=c_int), value, intent(in) :: participantNameLength
+      integer(kind=c_int), value, intent(in) :: configFileNameLength
+    end subroutine precicef_create_with_communicator
+
     subroutine precicef_initialize() &
       &  bind(c, name='precicef_initialize_')
 
