@@ -29,7 +29,7 @@ PROGRAM main
     readDataName = 'Data-One'
     meshName = 'SolverTwo-Mesh'
   CASE DEFAULT
-    ERROR STOP "The provided participant name is not correct. Valid names: SolverOne or SolverTwo."
+    STOP "The provided participant name is not correct. Valid names: SolverOne or SolverTwo."
   ENDSELECT
 
   rank = 0
