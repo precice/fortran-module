@@ -9,16 +9,15 @@ module precice
     ! - precicef_<name> automatically convert strings to null-terminated and call
     !   the corresponding `precicec_<name>`.
   
-    subroutine precicec_create(participantName, configFileName, &
-      &                        solverProcessIndex, solverProcessSize) &
-      &  bind(c, name='precicec_createParticipant')
+    subroutine precicef_create(participantName, configFileName, &
+      &                        solverProcessIndex, solverProcessSize)
 
       use, intrinsic :: iso_c_binding
-      character(kind=c_char), dimension(*) :: participantName
-      character(kind=c_char), dimension(*) :: configFileName
+      character(len=*,kind=c_char) :: participantName
+      character(len=*,kind=c_char) :: configFileName
       integer(kind=c_int) :: solverProcessIndex
       integer(kind=c_int) :: solverProcessSize
-    end subroutine precicec_create
+    end subroutine precicef_create
 
     subroutine precicef_initialize() &
       &  bind(c, name='precicef_initialize_')
@@ -313,22 +312,5 @@ module precice
     end subroutine precicef_get_version_information
 
   end interface
-
-  contains
-
-  subroutine precicef_create(participantName, configFileName, &
-    &                        solverProcessIndex, solverProcessSize)
-
-    use, intrinsic :: iso_c_binding, only: c_char, c_int
-    character(len=*), intent(in) :: participantName
-    character(len=*), intent(in) :: configFileName
-    integer(c_int), intent(in) :: solverProcessIndex
-    integer(c_int), intent(in) :: solverProcessSize
-
-    call precicec_create( &
-      trim(participantName)//c_null_char, &
-      trim(configFileName)//c_null_char, &
-      solverProcessIndex, solverProcessSize)
-  end subroutine precicef_create
   
 end module precice
