@@ -1,15 +1,16 @@
 PROGRAM main
   use precice
   IMPLICIT NONE
+  INTEGER, PARAMETER :: DP = kind(1.0d0)
   
   ! We need the length of the strings, set this to a meaningful value in your code.
   ! Here assumed that length = 50 (arbitrary).
-  CHARACTER(len=50)               :: config
-  CHARACTER(len=50)               :: participantName, meshName
-  CHARACTER(len=50)               :: readDataName, writeDataName
+  CHARACTER(50)                   :: config
+  CHARACTER(50)                   :: participantName, meshName
+  CHARACTER(50)                   :: readDataName, writeDataName
   INTEGER                         :: rank, commsize, ongoing, dimensions, bool, numberOfVertices, i, j
-  REAL(8)                         :: dt
-  REAL(8), DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
+  REAL(DP)                         :: dt
+  REAL(DP), DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
   INTEGER, DIMENSION(:), ALLOCATABLE :: vertexIDs
 
   WRITE (*,*) 'DUMMY: Starting Fortran solver dummy...'

@@ -1,4 +1,4 @@
 solverdummy
 *.log
-precice-profiling/
-precice-run/
+precice-profiling
+precice-run
