@@ -4,32 +4,32 @@ PROGRAM main
   
   ! We need the length of the strings, set this to a meaningful value in your code.
   ! Here assumed that length = 50 (arbitrary).
-  CHARACTER*50                    :: config
-  CHARACTER*50                    :: participantName, meshName
-  CHARACTER*50                    :: readDataName, writeDataName
+  CHARACTER(len=50)               :: config
+  CHARACTER(len=50)               :: participantName, meshName
+  CHARACTER(len=50)               :: readDataName, writeDataName
   INTEGER                         :: rank, commsize, ongoing, dimensions, bool, numberOfVertices, i, j
   REAL(8)                         :: dt
-  DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
+  REAL(8), DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
   INTEGER, DIMENSION(:), ALLOCATABLE :: vertexIDs
-  integer(kind=c_int)             :: c_participantNameLength = 50
-  integer(kind=c_int)             :: c_configFileNameLength = 50
 
   WRITE (*,*) 'DUMMY: Starting Fortran solver dummy...'
-  CALL getarg(1, config)
-  CALL getarg(2, participantName)
+  CALL get_command_argument(1, config)
+  CALL get_command_argument(2, participantName)
 
-  IF(participantName .eq. 'SolverOne') THEN
+  SELECT CASE(participantName)
+  CASE("SolverOne")
     write(*,*) "SolverOne"
     writeDataName = 'Data-One'
     readDataName = 'Data-Two'
     meshName = 'SolverOne-Mesh'
-  ENDIF
-  IF(participantName .eq. 'SolverTwo') THEN
+  CASE("SolverTwo")
     write(*,*) "SolverTwo"
     writeDataName = 'Data-Two'
     readDataName = 'Data-One'
     meshName = 'SolverTwo-Mesh'
-  ENDIF
+  CASE DEFAULT
+    ERROR STOP "The provided participant name is not correct. Valid names: SolverOne or SolverTwo."
+  ENDSELECT
 
   rank = 0
   commsize = 1
