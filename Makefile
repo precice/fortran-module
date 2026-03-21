@@ -2,7 +2,7 @@ FC ?= gfortran
 
 all: precice
 
-precice: precice.f90
+precice: thirdparty/precice.f90
 	$(FC) -std=f2003 -c $^
 
 clean:
