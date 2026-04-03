@@ -147,7 +147,7 @@ module precice
       integer(kind=c_int), value, intent(in) :: meshNameLength
     end subroutine precicef_set_mesh_vertices
 
-    subroutine precicef_set_mesh_edge_(meshName, firstVertexID, secondVertexID, &
+    subroutine precicef_set_mesh_edge(meshName, firstVertexID, secondVertexID, &
       &                          meshNameLength) &
       &  bind(c, name='precicef_set_mesh_edge_')
 
@@ -156,7 +156,7 @@ module precice
       integer(kind=c_int), intent(in) :: firstVertexID
       integer(kind=c_int), intent(in) :: secondVertexID
       integer(kind=c_int), value, intent(in) :: meshNameLength
-    end subroutine precicef_set_mesh_edge_
+    end subroutine precicef_set_mesh_edge
 
     subroutine precicef_set_mesh_edges(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_edges_')
@@ -204,7 +204,7 @@ module precice
       integer(kind=c_int), value, intent(in) :: meshNameLength
     end subroutine precicef_set_mesh_quad
 
-    subroutine precicef_set_mesh_quads_(meshName, size, ids, meshNameLength) &
+    subroutine precicef_set_mesh_quads(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_quads_')
 
       import :: c_int, c_char
@@ -212,9 +212,9 @@ module precice
       integer(kind=c_int), intent(in) :: size
       integer(kind=c_int), intent(in) :: ids(*)
       integer(kind=c_int), value, intent(in) :: meshNameLength
-    end subroutine precicef_set_mesh_quads_
+    end subroutine precicef_set_mesh_quads
 
-    subroutine precicef_set_mesh_tetrahedron_(meshName, firstVertexID, secondVertexID, &
+    subroutine precicef_set_mesh_tetrahedron(meshName, firstVertexID, secondVertexID, &
       &                                 thirdVertexID, fourthVertexID, &
       &                                 meshNameLength) &
       &  bind(c, name='precicef_set_mesh_tetrahedron_')
@@ -226,7 +226,7 @@ module precice
       integer(kind=c_int), intent(in) :: thirdVertexID
       integer(kind=c_int), intent(in) :: fourthVertexID
       integer(kind=c_int), value, intent(in) :: meshNameLength
-    end subroutine precicef_set_mesh_tetrahedron_
+    end subroutine precicef_set_mesh_tetrahedron
 
     subroutine precicef_set_mesh_tetrahedra(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_tetrahedra_')
