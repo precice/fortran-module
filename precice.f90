@@ -178,7 +178,7 @@ module precice
       integer(kind=c_int), intent(in) :: secondEdgeID
       integer(kind=c_int), intent(in) :: thirdEdgeID
       integer(kind=c_int), value, intent(in) :: meshNameLength
-    end subroutine precicef_set_triangle
+    end subroutine precicef_set_mesh_triangle
 
     subroutine precicef_set_mesh_triangles(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_triangles_')
@@ -202,7 +202,7 @@ module precice
       integer(kind=c_int), intent(in) :: thirdVertexID
       integer(kind=c_int), intent(in) :: fourthVertexID
       integer(kind=c_int), value, intent(in) :: meshNameLength
-    end subroutine precicef_set_quad
+    end subroutine precicef_set_mesh_quad
 
     subroutine precicef_set_mesh_quads_(meshName, size, ids, meshNameLength) &
       & bind(c, name='precicef_set_mesh_quads_')
