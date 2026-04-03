@@ -190,7 +190,7 @@ module precice
       integer(kind=c_int), value, intent(in) :: meshNameLength
     end subroutine precicef_set_mesh_triangles
 
-    subroutine precicef_set_quad(meshName, firstVertexID, secondVertexID, &
+    subroutine precicef_set_mesh_quad(meshName, firstVertexID, secondVertexID, &
       &                          thirdVertexID, fourthVertexID, &
       &                          meshNameLength ) &
       &  bind(c, name='precicef_set_mesh_quad_')
