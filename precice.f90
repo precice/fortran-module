@@ -168,7 +168,7 @@ module precice
       integer(kind=c_int), value, intent(in) :: meshNameLength
     end subroutine precicef_set_mesh_edges
 
-    subroutine precicef_set_triangle(meshName, firstEdgeID, secondEdgeID, &
+    subroutine precicef_set_mesh_triangle(meshName, firstEdgeID, secondEdgeID, &
       &                              thirdEdgeID, meshNameLength) &
       &  bind(c, name='precicef_set_mesh_triangle_')
 
