@@ -5,17 +5,13 @@ module precice
   interface
 
     subroutine precicef_create(participantName, configFileName, &
-      &                        solverProcessIndex, solverProcessSize, &
-      &                        participantNameLength, configFileNameLength) &
-      &  bind(c, name='precicef_create_')
+      &                        solverProcessIndex, solverProcessSize)
 
       import :: c_int, c_char
-      character(kind=c_char), dimension(*), intent(in) :: participantName
-      character(kind=c_char), dimension(*), intent(in) :: configFileName
+      character(len=*,kind=c_char), intent(in) :: participantName
+      character(len=*,kind=c_char), intent(in) :: configFileName
       integer(kind=c_int), intent(in) :: solverProcessIndex
       integer(kind=c_int), intent(in) :: solverProcessSize
-      integer(kind=c_int), value, intent(in) :: participantNameLength
-      integer(kind=c_int), value, intent(in) :: configFileNameLength
     end subroutine precicef_create
 
     subroutine precicef_create_with_communicator(participantName, configFileName, &
@@ -378,5 +374,5 @@ module precice
     end subroutine precicef_get_version_information
 
   end interface
-
+  
 end module precice

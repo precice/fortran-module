@@ -12,31 +12,31 @@ PROGRAM main
   REAL(DP)                         :: dt
   REAL(DP), DIMENSION(:), ALLOCATABLE :: vertices, writeData, readData
   INTEGER, DIMENSION(:), ALLOCATABLE :: vertexIDs
-  integer(kind=c_int)             :: c_participantNameLength = 50
-  integer(kind=c_int)             :: c_configFileNameLength = 50
 
   WRITE (*,*) 'DUMMY: Starting Fortran solver dummy...'
   CALL get_command_argument(1, config)
   CALL get_command_argument(2, participantName)
 
-  IF(participantName .eq. 'SolverOne') THEN
+  SELECT CASE(participantName)
+  CASE("SolverOne")
     write(*,*) "SolverOne"
     writeDataName = 'Data-One'
     readDataName = 'Data-Two'
     meshName = 'SolverOne-Mesh'
-  ENDIF
-  IF(participantName .eq. 'SolverTwo') THEN
+  CASE("SolverTwo")
     write(*,*) "SolverTwo"
     writeDataName = 'Data-Two'
     readDataName = 'Data-One'
     meshName = 'SolverTwo-Mesh'
-  ENDIF
+  CASE DEFAULT
+    STOP "The provided participant name is not correct. Valid names: SolverOne or SolverTwo."
+  ENDSELECT
 
   rank = 0
   commsize = 1
   dt = 1
   numberOfVertices = 3
-  CALL precicef_create(participantName, config, rank, commsize, 50, 50)
+  CALL precicef_create(participantName, config, rank, commsize)
 
   ! Allocate dummy mesh with only one vertex
   CALL precicef_get_mesh_dimensions(meshName, dimensions, 50)
